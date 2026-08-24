@@ -5,8 +5,12 @@ import HelloView from '../views/HelloPage.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+      {
+        path: '/',
+        redirect: { name: 'login' },
+      },
     {
-      path: '/',
+      path: '/login',
       name: 'login',
       component: LoginView,
     },
@@ -15,11 +19,11 @@ const router = createRouter({
       name: 'hello',
       component: HelloView,
     },
-    {
-      path: '/about',
-      name: 'about',
-      component: () => import('../views/AboutView.vue'),
-    },
+    // {
+    //   path: '/about',
+    //   name: 'about',
+    //   component: () => import('../views/AboutView.vue'),
+    // },
   ],
 })
 export default router
