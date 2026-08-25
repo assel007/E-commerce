@@ -1,72 +1,72 @@
 <template>
-    <div class="login-page">
-    <div class="login-container">
-      <h1>Login page!</h1>
-      <form class="login-form" @submit.prevent="handleLogin">
-        <div class="form-group">
-          <label for="email">enter your Email:</label>
-          <input type="email" id="email" v-model="email" required />
-        </div>
-        <div class="form-group">
-          <label for="password">enter your Password:</label>
-        <div class="password-container">
-         <input class="password-box"
-           :type="showPassword ? 'text' : 'password'"
-           id="password"
-           v-model="password"
-           minlength="8"
-           maxlength="20"
-           pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$!]).{8,20}"
-           title="Password must contain uppercase, lowercase, number, and special character"
-           required/>
-          <button class="toggle-password"
-            type="button"
-            @click="showPassword = !showPassword">
-            {{ showPassword ? 'Hide' : 'Show' }}
-          </button>
-          </div>
-          </div>
-        <button type="submit">Login</button>
-      </form>
-      </div>
-    <div class="creat-account">
-    <p >you Don't have an account?</p>
-    <p @click="router.push('/create-account')" >creat one</p>
+  <div class="cr-account-page">
+    <div class="cr-account-card">
+     <h1>Create an Account</h1>
+     <form class="create-form" @submit.prevent="handleCreateAccount">
+       <div>
+         <label for="username"> Enter your username</label>
+         <input type="text" id="username" name="username">
+       </div>
+       <div>
+         <label for="email"> Enter your email</label>
+         <input type="email" id="email" name="email">
+       </div>
+       <div>
+         <label for="password"> Enter your password</label>
+         <div class="password-container">
+           <input
+             class="password-box"
+             :type="showpassword ? 'text' : 'password'"
+             id="password"
+             name="password"
+             v-model="password"
+             minlength="8"
+             maxlength="20"
+             pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$!]).{8,20}"
+             title="Password must contain uppercase, lowercase, number, and special character"
+             required
+           >
+           <button
+             class="toggle-password"
+             type="button"
+             @click="showpassword = !showpassword"
+           >
+             {{ showpassword ? 'Hide' : 'Show' }}
+           </button>
+         </div>
+       </div>
+       <button type="submit">Create Account</button>
+     </form>
     </div>
   </div>
 </template>
-
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 const router = useRouter()
 const email = ref('')
 const password = ref('')
-const showPassword = ref(false)
-const handleLogin = () => {
+const showpassword = ref(false)
+const handleCreateAccount = () => {
   console.log('Email:', email.value)
   console.log('Password:', password.value)
   localStorage.setItem('userEmail', email.value)
   router.push({ name: 'hello' })
 }
 </script>
-
 <style scoped>
-:global(body),
-:global(#app) {
-  background: #fff1f6;
-}
-.login-page {
+.cr-account-page {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   min-height: 100vh;
   background: #ffe4ee;
-} 
-.login-container {
-  width: 50%;
-  height: 90%;
+  padding: 100px;
+}
+.cr-account-card {
+   width: 40%;
+  height: 40%;
   margin: 0 auto;
   padding: 48px 36px 36px;
   color: #202044;
@@ -82,7 +82,8 @@ h1 {
   font-weight: 700;
   line-height: 1.2;
 }
-h1::after {
+
+ h1::after {
   display: block;
   margin-top: 8px;
   color: #85849a;
@@ -93,7 +94,7 @@ h1::after {
 form {
   margin-top: 42px;
 }
-.form-group {
+.create-form {
   margin-bottom: 22px;
 }
 label {
@@ -120,7 +121,6 @@ input {
 input::placeholder {
   color: #aaa9b8;
 }
-
 input:focus {
   border-color: #6556c7;
   box-shadow: 0 0 0 3px rgba(101, 86, 199, 0.12);
@@ -147,7 +147,7 @@ button:active {
   transform: translateY(1px);
 }
 @media (max-width: 600px) {
-  .login-page {
+  .create-account-page {
     grid-template-columns: 1fr;
     gap: 18px;
     width: calc(100% - 40px);
@@ -159,14 +159,11 @@ button:active {
     min-height: 260px;
     max-height: 320px;
   }
-  .image-panel {
-    width: 100%;
-  }
-  .login-page {
+  .create-account-page {
     width: min(100% - 32px, 500px);
     padding: 24px 0;
   }
-  .login-container {
+  .create-account-container {
     min-height: auto;
     padding: 36px 22px 26px;
     border-radius: 12px;
@@ -181,8 +178,6 @@ button:active {
 .password-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  flex-direction: row;
   gap: 8px;
 }
 .toggle-password {
@@ -199,13 +194,8 @@ button:active {
   box-shadow: 0 6px 8px white;
 }
 .password-box {
-  width: auto;
   flex: 1;
-}
-.creat-account {
-  margin-top: 20px;
-  text-align: center;
-  font-size: 20px;
-  color: #202044;
+  width: auto;
 }
 </style>
+
