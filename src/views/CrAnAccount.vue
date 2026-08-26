@@ -9,7 +9,7 @@
        </div>
        <div>
          <label for="email"> Enter your email</label>
-         <input type="email" id="email" name="email">
+         <input type="email" id="email" name="email" v-model="email" required>
        </div>
        <div>
          <label for="password"> Enter your password</label>
@@ -38,7 +38,7 @@
        <button type="submit">Create Account</button>
      </form>
     </div>
-  </div>
+  </div>شن
 </template>
 <script setup>
 import { ref } from 'vue'
@@ -48,12 +48,6 @@ const email = ref('')
 const password = ref('')
 const showpassword = ref(false)
 const handleCreateAccount = () => {
-  console.log('Email:', email.value)
-  console.log('Password:', password.value)
-  localStorage.setItem('userEmail', email.value)
-  router.push({ name: 'hello' })
-}
-const handleLogin = () => {
   localStorage.setItem('userEmail', email.value)
   router.push({ name: 'hello' })
 }

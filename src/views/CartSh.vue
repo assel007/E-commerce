@@ -9,6 +9,7 @@
         <div>
           <h2>{{ product.name }}</h2>
           <p>Price: ${{ product.price }}</p>
+          <p>Quantity: {{ product.quantity }}</p>
         </div>
       </article>
       <p>Total Price: ${{ total_price }}</p>
@@ -25,9 +26,24 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const cart = ref(JSON.parse(localStorage.getItem('cart')) || [])
+const savedCart = JSON.parse(localStorage.getItem('cart')) || []
+const groupedCart = savedCart.reduce((items, product) => {
+  const existingProduct = items.find((item) => item.id === product.id)
+
+  if (existingProduct) {
+    existingProduct.quantity += product.quantity || 1
+  } else {
+    items.push({ ...product, quantity: product.quantity || 1 })
+  }
+
+  return items
+}, [])
+const cart = ref(groupedCart)
+
+localStorage.setItem('cart', JSON.stringify(cart.value))
+
 const total_price = computed(() => {
-  return cart.value.reduce((total, product) => total + product.price, 0)
+  return cart.value.reduce((total, product) => total + product.price * product.quantity, 0)
 })
 
 const emptyCart = () => {

@@ -12,9 +12,6 @@
       <h1>Hello, {{ username }}!</h1>
       <h3>We are happy to see you!</h3>
     </section>
-    <section>
-      <button class="back" @click="router.push ('/login')">back to login page</button>
-    </section>
     <section class="images-container">
       <div class="products" 
         v-for="product in products"
@@ -23,6 +20,9 @@
         <p>Price: ${{ product.price }}</p>
         <button class="add-to-cart" @click="addToCart(product)">Add to Cart</button>
       </div>
+    </section>
+    <section>
+    <button class="back" @click="router.push ('/login')">back to login page</button>
     </section>
   </main>
 </template>
@@ -95,7 +95,14 @@ image: '/picture10.jpg'
 ]
 const addToCart = (product) => {
  let cart = JSON.parse(localStorage.getItem('cart')) || [];
- cart.push(product);
+ const existingProduct = cart.find((item) => item.id === product.id)
+
+ if (existingProduct) {
+  existingProduct.quantity = (existingProduct.quantity || 1) + 1
+ } else {
+  cart.push({ ...product, quantity: 1 })
+ }
+
   localStorage.setItem('cart', JSON.stringify(cart));
 };
 
