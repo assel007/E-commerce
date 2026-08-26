@@ -44,8 +44,6 @@ const email = ref('')
 const password = ref('')
 const showPassword = ref(false)
 const handleLogin = () => {
-  console.log('Email:', email.value)
-  console.log('Password:', password.value)
   localStorage.setItem('userEmail', email.value)
   router.push({ name: 'hello' })
 }

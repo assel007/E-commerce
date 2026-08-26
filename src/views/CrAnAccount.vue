@@ -53,6 +53,10 @@ const handleCreateAccount = () => {
   localStorage.setItem('userEmail', email.value)
   router.push({ name: 'hello' })
 }
+const handleLogin = () => {
+  localStorage.setItem('userEmail', email.value)
+  router.push({ name: 'hello' })
+}
 </script>
 <style scoped>
 .cr-account-page {
